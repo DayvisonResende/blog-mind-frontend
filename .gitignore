@@ -27,3 +27,6 @@ pnpm-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+# scripts locais de execucao
+Run.bat
