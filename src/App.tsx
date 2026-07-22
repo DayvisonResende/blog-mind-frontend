@@ -5,6 +5,8 @@ import { HomePage } from '@/pages/HomePage';
 import { LoginPage } from '@/pages/LoginPage';
 import { RegisterPage } from '@/pages/RegisterPage';
 import { ArticlesPage } from '@/pages/ArticlesPage';
+import { ArticleDetailPage } from '@/pages/ArticleDetailPage';
+import { ArticleFormPage } from '@/pages/ArticleFormPage';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
@@ -22,8 +24,11 @@ export function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastro" element={<RegisterPage />} />
         <Route path="/artigos" element={<ArticlesPage />} />
+        <Route path="/artigos/:id" element={<ArticleDetailPage />} />
 
         <Route element={<ProtectedRoute />}>
+          <Route path="/artigos/novo" element={<ArticleFormPage />} />
+          <Route path="/artigos/:id/editar" element={<ArticleFormPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/configuracoes" element={<SettingsPage />} />
         </Route>
