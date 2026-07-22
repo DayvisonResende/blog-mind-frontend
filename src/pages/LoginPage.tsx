@@ -9,6 +9,7 @@ import type { NormalizedError } from '@/services/api';
 import { Logo } from '@/components/layout/Logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 
 export function LoginPage() {
@@ -34,16 +35,16 @@ export function LoginPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-[80vh] max-w-md flex-col justify-center px-4 py-10">
-      <div className="mb-6 flex flex-col items-center gap-2 text-center">
-        <Logo className="text-2xl" />
-        <h1 className="text-2xl font-bold">Entrar na Plataforma</h1>
-        <p className="text-sm text-muted-foreground">Acesse sua conta para gerenciar seus artigos</p>
+    <div className="mx-auto w-full max-w-md px-4 py-16">
+      <div className="mb-8 flex flex-col items-center gap-3 text-center">
+        <Logo className="text-4xl" />
+        <h1 className="text-3xl font-bold">Entrar na Plataforma</h1>
+        <p className="text-muted-foreground">Acesse sua conta para gerenciar seus artigos</p>
       </div>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 rounded-lg border bg-card p-6"
+        className="space-y-5 rounded-lg border bg-card p-8"
         noValidate
       >
         <div className="space-y-2">
@@ -57,7 +58,7 @@ export function LoginPage() {
             <Label htmlFor="password">Senha</Label>
             <span className="text-xs text-muted-foreground">Esqueceu a senha?</span>
           </div>
-          <Input id="password" type="password" placeholder="********" {...register('password')} />
+          <PasswordInput id="password" placeholder="********" {...register('password')} />
           {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
         </div>
 
@@ -67,7 +68,7 @@ export function LoginPage() {
         </Button>
 
         <p className="text-center text-sm text-muted-foreground">
-          Nao tem uma conta?{' '}
+          Não tem uma conta?{' '}
           <Link to="/cadastro" className="font-medium text-foreground hover:underline">
             Criar conta
           </Link>
