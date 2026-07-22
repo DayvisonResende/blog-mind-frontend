@@ -11,6 +11,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { formatDate, resolveImageUrl } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { CategoryBadge } from '@/components/article/CategoryBadge';
+import { CommentSection } from '@/components/article/CommentSection';
 import { FullScreenLoader } from '@/components/common/Loader';
 import { EmptyState } from '@/components/common/EmptyState';
 import { Button } from '@/components/ui/button';
@@ -179,13 +180,11 @@ export function ArticleDetailPage() {
         </div>
       )}
 
-      {/* Comentarios: implementados na Fase 9 */}
-      <section id="comentarios" className="mt-12 border-t pt-8">
-        <h2 className="text-xl font-bold">Comentarios ({article.commentsCount})</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          A secao de comentarios chega na Fase 9.
-        </p>
-      </section>
+      {/* Comentarios */}
+      <CommentSection
+        articleId={article.id}
+        onCountChange={(count) => setArticle((curr) => (curr ? { ...curr, commentsCount: count } : curr))}
+      />
     </article>
   );
 }

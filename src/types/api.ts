@@ -70,6 +70,14 @@ export interface DashboardStats {
   avgReadingTime: number;
 }
 
+export interface ActivityItem {
+  id: string;
+  content: string;
+  createdAt: string;
+  commenter: { name: string; avatar: string | null };
+  article: { id: string; title: string };
+}
+
 export interface ToggleResult {
   active: boolean;
   count: number;

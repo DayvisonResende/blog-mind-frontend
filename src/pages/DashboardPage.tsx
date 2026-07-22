@@ -19,6 +19,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { formatDate, resolveImageUrl } from '@/lib/format';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/common/EmptyState';
+import { RecentActivity } from '@/components/RecentActivity';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Dialog,
@@ -123,9 +124,10 @@ export function DashboardPage() {
         ))}
       </div>
 
-      {/* Meus Artigos */}
-      <div className="mt-10">
-        <h2 className="mb-4 text-xl font-bold">Meus Artigos</h2>
+      {/* Meus Artigos + Atividade Recente */}
+      <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <h2 className="mb-4 text-xl font-bold">Meus Artigos</h2>
 
         {loading ? (
           <div className="space-y-3">
@@ -190,7 +192,10 @@ export function DashboardPage() {
               </div>
             ))}
           </div>
-        )}
+          )}
+        </div>
+
+        <RecentActivity />
       </div>
 
       {/* Modal de confirmacao de exclusao */}
