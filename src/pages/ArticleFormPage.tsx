@@ -1,5 +1,5 @@
 import { useEffect, useState, type KeyboardEvent } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
@@ -14,6 +14,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { FullScreenLoader } from '@/components/common/Loader';
 
 const MAX_CONTENT = 8000;
@@ -122,12 +129,16 @@ export function ArticleFormPage() {
       </Link>
 
       <h1 className="text-3xl font-bold">{isEdit ? 'Editar Artigo' : 'Criar Novo Artigo'}</h1>
-      <p className="mb-8 text-muted-foreground">Compartilhe seu conhecimento com a comunidade</p>
+      <p className="mb-8 text-muted-foreground">
+        {isEdit
+          ? 'Atualize as informações do seu artigo'
+          : 'Compartilhe seu conhecimento com a comunidade'}
+      </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 rounded-lg border bg-card p-6" noValidate>
         {/* Titulo */}
         <div className="space-y-2">
-          <Label htmlFor="title">Titulo do Artigo *</Label>
+          <Label htmlFor="title">Título do Artigo *</Label>
           <Input id="title" {...register('title')} />
           {errors.title && <p className="text-sm text-destructive">{errors.title.message}</p>}
         </div>
@@ -151,10 +162,24 @@ export function ArticleFormPage() {
         {/* Categoria */}
         <div className="space-y-2">
           <Label htmlFor="category">Categoria *</Label>
-          <Input id="category" list="category-options" placeholder="Ex.: Desenvolvimento web" {...register('category')} />
-          <datalist id="category-options">
-            {categories?.map((c) => <option key={c} value={c} />)}
-          </datalist>
+          <Controller
+            control={control}
+            name="category"
+            render={({ field }) => (
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger id="category" className="w-full">
+                  <SelectValue placeholder="Selecione uma categoria" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories?.map((c) => (
+                    <SelectItem key={c} value={c}>
+                      {c}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
           {errors.category && <p className="text-sm text-destructive">{errors.category.message}</p>}
         </div>
 
@@ -195,7 +220,7 @@ export function ArticleFormPage() {
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs"
+                  className="flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs"
                 >
                   {tag}
                   <button
@@ -213,7 +238,7 @@ export function ArticleFormPage() {
 
         {/* Conteudo */}
         <div className="space-y-2">
-          <Label htmlFor="content">Conteudo do Artigo * (markdown)</Label>
+          <Label htmlFor="content">Conteúdo do Artigo *</Label>
           <Textarea id="content" rows={14} maxLength={MAX_CONTENT} className="font-mono text-sm" {...register('content')} />
           <div className="flex flex-wrap justify-between gap-2 text-xs text-muted-foreground">
             {errors.content ? (
@@ -222,16 +247,16 @@ export function ArticleFormPage() {
               <span />
             )}
             <span>
-              {content.length}/{MAX_CONTENT} caracteres · {countWords(content)} palavras ·{' '}
-              {calculateReadingTime(content)} min de leitura
+              {content.length}/{MAX_CONTENT} caracteres • {countWords(content)} palavras •{' '}
+              {calculateReadingTime(content)} minutos de leitura
             </span>
           </div>
         </div>
 
         {/* Acoes */}
-        <div className="flex gap-3">
-          <Button type="submit" className="flex-1" disabled={isSubmitting}>
-            {isSubmitting ? 'Salvando...' : isEdit ? 'Salvar Alteracoes' : 'Publicar Artigo'}
+        <div className="flex justify-start gap-3">
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Salvando...' : isEdit ? 'Salvar Alterações' : 'Publicar Artigo'}
           </Button>
           <Button type="button" variant="outline" onClick={() => navigate(-1)}>
             Cancelar
