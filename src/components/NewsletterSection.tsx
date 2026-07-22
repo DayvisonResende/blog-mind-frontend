@@ -6,7 +6,6 @@ import type { NormalizedError } from '@/services/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-/** Seção de inscrição na newsletter (captura de e-mail da home). */
 export function NewsletterSection() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);

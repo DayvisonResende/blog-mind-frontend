@@ -13,7 +13,6 @@ export interface ListArticlesParams {
   category?: string;
 }
 
-/** Chamadas de artigos, categorias, dashboard e reacoes ao backend. */
 export const articleService = {
   list: (params: ListArticlesParams = {}) =>
     api.get<PaginatedArticles>('/articles', { params }).then((r) => r.data),

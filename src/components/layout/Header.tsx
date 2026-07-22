@@ -42,7 +42,6 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          {/* Menu mobile */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="sm:hidden">
               <Button variant="ghost" size="icon" aria-label="Abrir menu">

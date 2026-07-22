@@ -1,7 +1,6 @@
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-/** Spinner centralizado, usado enquanto restauramos a sessao ou carregamos dados. */
 export function FullScreenLoader({ className }: { className?: string }) {
   return (
     <div className={cn('flex min-h-[60vh] items-center justify-center', className)}>

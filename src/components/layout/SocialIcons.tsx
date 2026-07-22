@@ -1,10 +1,6 @@
 import type { SVGProps } from 'react';
 
-/**
- * Icones de marca (LinkedIn, GitHub, Twitter/X) como SVG inline — o lucide-react
- * removeu os icones de marca em versoes recentes.
- */
-
+// SVG inline: o lucide-react removeu os icones de marca em versoes recentes.
 export function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>

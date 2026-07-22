@@ -49,7 +49,6 @@ export function ArticlesPage() {
         Explore nossa coleção completa de artigos técnicos
       </p>
 
-      {/* Controles */}
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative w-full sm:max-w-md">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -110,7 +109,6 @@ export function ArticlesPage() {
         </div>
       </div>
 
-      {/* Resultados */}
       <div className="mt-8">
         {loading ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -140,7 +138,6 @@ export function ArticlesPage() {
         )}
       </div>
 
-      {/* Paginacao */}
       {meta && meta.totalPages > 1 && (
         <div className="mt-8 flex items-center justify-center gap-4">
           <Button

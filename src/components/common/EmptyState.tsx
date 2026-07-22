@@ -10,7 +10,6 @@ interface EmptyStateProps {
   className?: string;
 }
 
-/** Estado vazio reutilizavel (listas sem resultados, dashboard sem artigos, etc.). */
 export function EmptyState({
   icon: Icon = Inbox,
   title,

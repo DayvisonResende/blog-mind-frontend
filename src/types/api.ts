@@ -1,4 +1,3 @@
-/** Tipos das respostas da API do backend (blog-mind-backend). */
 
 export interface User {
   id: string;
@@ -83,7 +82,6 @@ export interface ToggleResult {
   count: number;
 }
 
-/** Formato padronizado de erro vindo do backend ({ message, code }). */
 export interface ApiError {
   message: string;
   code: string;

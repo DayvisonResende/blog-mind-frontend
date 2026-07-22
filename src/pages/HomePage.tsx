@@ -16,7 +16,6 @@ export function HomePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4">
-      {/* Hero */}
       <section className="flex flex-col items-center gap-6 py-20 text-center">
         <h1 className="max-w-2xl text-4xl font-bold sm:text-5xl">
           Explore o Futuro da <span className="block text-primary">Tecnologia</span>
@@ -34,7 +33,6 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Destaques */}
       <section className="py-8">
         <div className="mb-6 flex items-end justify-between">
           <div>
@@ -76,7 +74,6 @@ export function HomePage() {
         )}
       </section>
 
-      {/* Recentes */}
       {recent.length > 0 && (
         <section className="py-8">
           <div className="mb-6">
@@ -91,12 +88,10 @@ export function HomePage() {
         </section>
       )}
 
-      {/* Newsletter */}
       <section className="py-12">
         <NewsletterSection />
       </section>
 
-      {/* CTA final */}
       <section className="pb-16 pt-4 text-center">
         <h2 className="text-2xl font-bold">Compartilhe Seu Conhecimento</h2>
         <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">

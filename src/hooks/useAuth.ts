@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '@/contexts/auth-context';
 
-/** Acessa o usuario logado e as acoes de autenticacao. */
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

@@ -7,7 +7,6 @@ interface CategoryBadgeProps {
   className?: string;
 }
 
-/** Badge de categoria. Nos cards e um chip escuro; no detalhe, laranja solido (Figma). */
 export function CategoryBadge({ category, variant = 'muted', className }: CategoryBadgeProps) {
   return (
     <span

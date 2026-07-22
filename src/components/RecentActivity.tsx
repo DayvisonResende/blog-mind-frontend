@@ -6,7 +6,6 @@ import { formatDate, resolveImageUrl } from '@/lib/format';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-/** Painel de atividade recente: ultimos comentarios nos artigos do usuario. */
 export function RecentActivity() {
   const { data, loading } = useAsync<ActivityItem[]>(() => commentService.recentActivity(), []);
 

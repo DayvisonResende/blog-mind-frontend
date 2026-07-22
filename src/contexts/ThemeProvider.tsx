@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { ThemeContext, THEME_STORAGE_KEY, type Theme } from './theme-context';
 
-/**
- * Descobre o tema inicial: usa a preferencia salva; senao respeita o
- * `prefers-color-scheme` do sistema; e cai no escuro por padrao (Figma).
- */
+// Preferencia salva > prefers-color-scheme > escuro por padrao.
 function getInitialTheme(): Theme {
   const stored = localStorage.getItem(THEME_STORAGE_KEY);
   if (stored === 'light' || stored === 'dark') return stored;

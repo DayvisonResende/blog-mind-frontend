@@ -25,7 +25,6 @@ function Cover({ article, className }: { article: Article; className?: string })
   );
 }
 
-/** Linha superior: badge de categoria (esquerda) e data (direita). */
 function TopRow({ article }: { article: Article }) {
   return (
     <div className="flex items-center justify-between">
@@ -37,7 +36,6 @@ function TopRow({ article }: { article: Article }) {
   );
 }
 
-/** Linha inferior: autor (esquerda) e estatisticas (direita). */
 function BottomRow({ article }: { article: Article }) {
   return (
     <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -57,7 +55,6 @@ function BottomRow({ article }: { article: Article }) {
   );
 }
 
-/** Card de artigo, com layout em grade (vertical), lista (horizontal) ou compacto (sem capa). */
 export function ArticleCard({ article, variant = 'grid' }: ArticleCardProps) {
   if (variant === 'compact') {
     return (
@@ -114,7 +111,6 @@ export function ArticleCard({ article, variant = 'grid' }: ArticleCardProps) {
   );
 }
 
-/** Esqueleto de carregamento no formato do card. */
 export function ArticleCardSkeleton() {
   return (
     <div className="flex flex-col overflow-hidden rounded-lg border bg-card">

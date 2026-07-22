@@ -26,8 +26,7 @@ export function ArticleDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<NormalizedError>();
 
-  // Guarda o id ja requisitado: evita o duplo fetch do StrictMode (dev),
-  // que fazia a visualizacao subir de 2 em 2.
+  // evita o duplo fetch do StrictMode (dev), que contava a view 2x
   const requestedIdRef = useRef<string>('');
 
   useEffect(() => {
@@ -122,7 +121,6 @@ export function ArticleDetailPage() {
       <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{article.title}</h1>
       <p className="mt-3 text-lg text-muted-foreground">{article.summary}</p>
 
-      {/* Autor + acoes */}
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t pt-4">
         <div className="flex items-center gap-3">
           <Avatar>
@@ -162,7 +160,6 @@ export function ArticleDetailPage() {
         </div>
       </div>
 
-      {/* Estatisticas */}
       <div className="mt-4 flex flex-wrap items-center gap-4 border-b pb-4 text-sm text-muted-foreground">
         <span className="flex items-center gap-1">
           <Heart className="size-4" /> {article.likesCount} curtidas
@@ -175,7 +172,6 @@ export function ArticleDetailPage() {
         </span>
       </div>
 
-      {/* Capa */}
       {cover && (
         <img
           src={cover}
@@ -184,12 +180,10 @@ export function ArticleDetailPage() {
         />
       )}
 
-      {/* Conteudo em markdown */}
       <div className="prose prose-neutral mt-8 max-w-none dark:prose-invert">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
       </div>
 
-      {/* Tags */}
       {article.tags.length > 0 && (
         <div className="mt-8 flex flex-wrap gap-2 border-t pt-6">
           {article.tags.map((tag) => (
@@ -203,7 +197,6 @@ export function ArticleDetailPage() {
         </div>
       )}
 
-      {/* Comentarios */}
       <CommentSection
         articleId={article.id}
         onCountChange={(count) => setArticle((curr) => (curr ? { ...curr, commentsCount: count } : curr))}

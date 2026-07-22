@@ -10,5 +10,4 @@ export interface ThemeContextValue {
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-/** Chave usada para persistir a preferencia de tema no localStorage. */
 export const THEME_STORAGE_KEY = 'blog-mind-theme';

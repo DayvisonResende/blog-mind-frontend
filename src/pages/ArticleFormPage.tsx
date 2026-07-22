@@ -136,14 +136,12 @@ export function ArticleFormPage() {
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 rounded-lg border bg-card p-6" noValidate>
-        {/* Titulo */}
         <div className="space-y-2">
           <Label htmlFor="title">Título do Artigo *</Label>
           <Input id="title" {...register('title')} />
           {errors.title && <p className="text-sm text-destructive">{errors.title.message}</p>}
         </div>
 
-        {/* Resumo */}
         <div className="space-y-2">
           <Label htmlFor="summary">Resumo *</Label>
           <Textarea id="summary" rows={2} maxLength={MAX_SUMMARY} {...register('summary')} />
@@ -159,7 +157,6 @@ export function ArticleFormPage() {
           </div>
         </div>
 
-        {/* Categoria */}
         <div className="space-y-2">
           <Label htmlFor="category">Categoria *</Label>
           <Controller
@@ -183,7 +180,6 @@ export function ArticleFormPage() {
           {errors.category && <p className="text-sm text-destructive">{errors.category.message}</p>}
         </div>
 
-        {/* Imagem de capa */}
         <div className="space-y-2">
           <Label htmlFor="cover">Imagem de Capa</Label>
           <Input
@@ -201,7 +197,6 @@ export function ArticleFormPage() {
           )}
         </div>
 
-        {/* Tags */}
         <div className="space-y-2">
           <Label>Tags</Label>
           <div className="flex gap-2">
@@ -236,7 +231,6 @@ export function ArticleFormPage() {
           )}
         </div>
 
-        {/* Conteudo */}
         <div className="space-y-2">
           <Label htmlFor="content">Conteúdo do Artigo *</Label>
           <Textarea id="content" rows={14} maxLength={MAX_CONTENT} className="font-mono text-sm" {...register('content')} />
@@ -253,7 +247,6 @@ export function ArticleFormPage() {
           </div>
         </div>
 
-        {/* Acoes */}
         <div className="flex justify-start gap-3">
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Salvando...' : isEdit ? 'Salvar Alterações' : 'Publicar Artigo'}

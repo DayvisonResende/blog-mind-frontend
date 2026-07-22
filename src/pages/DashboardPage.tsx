@@ -84,7 +84,6 @@ export function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      {/* Cabecalho */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
@@ -104,7 +103,6 @@ export function DashboardPage() {
         </div>
       </div>
 
-      {/* Estatisticas */}
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {statCards.map(({ key, label, icon: Icon, suffix }) => (
           <div key={key} className="rounded-lg border bg-card p-5">
@@ -124,7 +122,6 @@ export function DashboardPage() {
         ))}
       </div>
 
-      {/* Meus Artigos + Atividade Recente */}
       <div className="mt-10 grid gap-6 lg:grid-cols-3">
         <div className="rounded-lg border bg-card p-5 lg:col-span-2">
           <h2 className="mb-4 text-lg font-bold">Meus Artigos</h2>
@@ -203,7 +200,6 @@ export function DashboardPage() {
         <RecentActivity />
       </div>
 
-      {/* Modal de confirmacao de exclusao */}
       <Dialog open={toDelete !== null} onOpenChange={(open) => !open && setToDelete(null)}>
         <DialogContent>
           <DialogHeader>

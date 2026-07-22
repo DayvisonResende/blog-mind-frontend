@@ -11,11 +11,6 @@ import { DashboardPage } from '@/pages/DashboardPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
-/**
- * Roteamento da aplicacao. Tudo dentro do Layout (header + footer).
- * Rotas privadas (dashboard, configuracoes) passam pelo ProtectedRoute.
- * Telas do blog (detalhe, criar/editar) sao adicionadas na Fase 8.
- */
 export function App() {
   return (
     <Routes>

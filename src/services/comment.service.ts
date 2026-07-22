@@ -1,7 +1,6 @@
 import { api } from './api';
 import type { ActivityItem, Comment, ToggleResult } from '@/types/api';
 
-/** Chamadas de comentarios, curtidas de comentario e atividade do dashboard. */
 export const commentService = {
   listByArticle: (articleId: string) =>
     api.get<Comment[]>(`/articles/${articleId}/comments`).then((r) => r.data),

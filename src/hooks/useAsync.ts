@@ -7,11 +7,6 @@ interface AsyncState<T> {
   error: NormalizedError | undefined;
 }
 
-/**
- * Executa uma funcao assincrona e expoe { data, loading, error }.
- * Reexecuta quando o array `deps` muda. Ignora respostas obsoletas
- * (evita setState apos desmontar / troca de deps).
- */
 export function useAsync<T>(fn: () => Promise<T>, deps: unknown[]): AsyncState<T> {
   const [state, setState] = useState<AsyncState<T>>({
     data: undefined,

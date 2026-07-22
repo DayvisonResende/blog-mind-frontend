@@ -3,7 +3,6 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
 
-/** Estrutura global das telas: header fixo, conteudo da rota e footer. */
 export function Layout() {
   return (
     <div className="flex min-h-screen flex-col">

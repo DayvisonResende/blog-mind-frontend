@@ -2,10 +2,8 @@ import axios, { AxiosError } from 'axios';
 import { env } from '@/lib/env';
 import type { ApiError } from '@/types/api';
 
-/** Chave onde o JWT fica guardado (definida no AuthContext). */
 export const TOKEN_STORAGE_KEY = 'blog-mind-token';
 
-/** Erro normalizado da API, com mensagem clara para exibir ao usuario. */
 export interface NormalizedError {
   message: string;
   code: string;
@@ -25,10 +23,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-/**
- * Converte qualquer erro (Axios/rede/inesperado) no formato { message, code, status },
- * aproveitando o `{ message, code }` padronizado que o backend retorna.
- */
 export function normalizeError(error: unknown): NormalizedError {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError<ApiError>;

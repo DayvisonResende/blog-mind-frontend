@@ -93,7 +93,6 @@ export function CommentSection({ articleId, onCountChange }: CommentSectionProps
     <section id="comentarios" className="mt-12 border-t pt-8">
       <h2 className="text-xl font-bold">Comentários ({comments.length})</h2>
 
-      {/* Formulario ou aviso de login */}
       {isAuthenticated ? (
         <form onSubmit={handleSubmit} className="mt-4 space-y-2">
           <Textarea
@@ -117,7 +116,6 @@ export function CommentSection({ articleId, onCountChange }: CommentSectionProps
         </div>
       )}
 
-      {/* Lista */}
       <div className="mt-6 space-y-4">
         {loading ? (
           <p className="text-sm text-muted-foreground">Carregando comentários...</p>

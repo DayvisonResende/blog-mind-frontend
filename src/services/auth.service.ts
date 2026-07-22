@@ -12,7 +12,6 @@ export interface LoginPayload {
   password: string;
 }
 
-/** Chamadas de autenticacao e perfil ao backend. */
 export const authService = {
   register: (payload: RegisterPayload) =>
     api.post<AuthResult>('/auth/register', payload).then((r) => r.data),

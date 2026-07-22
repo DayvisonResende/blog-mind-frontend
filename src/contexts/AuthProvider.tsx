@@ -11,7 +11,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     Boolean(localStorage.getItem(TOKEN_STORAGE_KEY)),
   );
 
-  // Ao montar: se houver token salvo, restaura a sessao buscando /auth/me.
+  // restaura a sessao a partir do token salvo
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_STORAGE_KEY);
     if (!token) return;
