@@ -41,7 +41,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <div className="flex items-center gap-2 sm:gap-8">
+        <div className="flex items-center gap-2">
           {/* Menu mobile */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="sm:hidden">
@@ -56,6 +56,9 @@ export function Header() {
           </DropdownMenu>
 
           <Logo />
+        </div>
+
+        <div className="flex items-center gap-3">
           <nav className="hidden items-center gap-6 sm:flex">
             <NavLink to="/" end className={navLinkClass}>
               Home
@@ -64,9 +67,7 @@ export function Header() {
               Artigos
             </NavLink>
           </nav>
-        </div>
-
-        <div className="flex items-center gap-2">
+          <div className="hidden h-5 w-px bg-border sm:block" />
           <ThemeToggle />
 
           {isAuthenticated && user ? (
@@ -79,14 +80,23 @@ export function Header() {
                   </Avatar>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-52">
-                <DropdownMenuLabel className="truncate">{user.name}</DropdownMenuLabel>
+              <DropdownMenuContent align="end" className="w-60">
+                <DropdownMenuLabel className="flex items-center gap-2 py-2 font-normal">
+                  <Avatar className="size-9">
+                    <AvatarImage src={user.avatar ?? undefined} alt={user.name} />
+                    <AvatarFallback>{initials(user.name)}</AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium">{user.name}</p>
+                    <p className="truncate text-xs text-muted-foreground">{user.email}</p>
+                  </div>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate('/dashboard')}>
                   <LayoutDashboard className="mr-2 size-4" /> Dashboard
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/configuracoes')}>
-                  <Settings className="mr-2 size-4" /> Configuracoes
+                  <Settings className="mr-2 size-4" /> Configurações
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>

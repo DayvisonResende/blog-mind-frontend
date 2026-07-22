@@ -43,7 +43,7 @@ export function normalizeError(error: unknown): NormalizedError {
     // Sem resposta do servidor => provavel erro de rede.
     if (!axiosError.response) {
       return {
-        message: 'Nao foi possivel conectar ao servidor. Verifique sua conexao.',
+        message: 'Não foi possível conectar ao servidor. Verifique sua conexão.',
         code: 'NETWORK_ERROR',
         status: 0,
       };

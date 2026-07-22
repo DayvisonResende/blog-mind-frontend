@@ -37,7 +37,7 @@ describe('ArticleCard', () => {
     expect(screen.getByText('O Futuro da IA')).toBeInTheDocument();
     expect(screen.getByText('Desenvolvimento web')).toBeInTheDocument();
     expect(screen.getByText('John Doe')).toBeInTheDocument();
-    expect(screen.getByText('6 min')).toBeInTheDocument();
+    expect(screen.getByText('6min')).toBeInTheDocument();
   });
 
   it('linka para o detalhe do artigo', () => {

@@ -17,45 +17,47 @@ const socials = [
 export function Footer() {
   return (
     <footer className="mt-16 border-t">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
-        <div className="space-y-3">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:flex-row sm:justify-between">
+        <div className="max-w-xs space-y-3">
           <Logo />
-          <p className="max-w-xs text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Seu portal de tecnologia com artigos, tutoriais e novidades do mundo tech.
           </p>
         </div>
 
-        <div className="space-y-3">
-          <h3 className="text-sm font-semibold">Navegacao</h3>
-          <ul className="space-y-2">
-            {navLinks.map((link) => (
-              <li key={link.to}>
-                <Link
-                  to={link.to}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div className="flex gap-12 sm:gap-20">
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold">Navegação</h3>
+            <ul className="space-y-2">
+              {navLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="space-y-3">
-          <h3 className="text-sm font-semibold">Redes Sociais</h3>
-          <div className="flex gap-3">
-            {socials.map(({ label, icon: Icon, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <Icon className="size-5" />
-              </a>
-            ))}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold">Redes Sociais</h3>
+            <div className="flex gap-3">
+              {socials.map(({ label, icon: Icon, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <Icon className="size-5" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

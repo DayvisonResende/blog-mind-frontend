@@ -19,17 +19,17 @@ export function HomePage() {
       {/* Hero */}
       <section className="flex flex-col items-center gap-6 py-20 text-center">
         <h1 className="max-w-2xl text-4xl font-bold sm:text-5xl">
-          Explore o Futuro da <span className="text-primary">Tecnologia</span>
+          Explore o Futuro da <span className="block text-primary">Tecnologia</span>
         </h1>
-        <p className="max-w-xl text-muted-foreground">
-          Artigos sobre IA, desenvolvimento, DevOps e as ultimas tendencias tecnologicas.
+        <p className="max-w-md font-medium text-muted-foreground">
+          Artigos sobre IA, desenvolvimento, DevOps e as últimas tendências tecnológicas.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Button asChild size="lg">
             <Link to="/artigos">Explorar Artigos</Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link to="/cadastro">Comecar a Escrever</Link>
+            <Link to="/cadastro">Começar a Escrever</Link>
           </Button>
         </div>
       </section>
@@ -39,7 +39,7 @@ export function HomePage() {
         <div className="mb-6 flex items-end justify-between">
           <div>
             <h2 className="text-2xl font-bold">Artigos em Destaque</h2>
-            <p className="text-sm text-muted-foreground">Os melhores conteudos selecionados para voce</p>
+            <p className="text-sm text-muted-foreground">Os melhores conteúdos selecionados para você</p>
           </div>
           <Link
             to="/artigos"
@@ -56,14 +56,14 @@ export function HomePage() {
             ))}
           </div>
         ) : error ? (
-          <EmptyState title="Nao foi possivel carregar os artigos" description={error.message} />
+          <EmptyState title="Não foi possível carregar os artigos" description={error.message} />
         ) : featured.length === 0 ? (
           <EmptyState
             title="Nenhum artigo ainda"
             description="Seja o primeiro a publicar um artigo."
             action={
               <Button asChild>
-                <Link to="/cadastro">Comecar a Escrever</Link>
+                <Link to="/cadastro">Começar a Escrever</Link>
               </Button>
             }
           />
@@ -81,11 +81,11 @@ export function HomePage() {
         <section className="py-8">
           <div className="mb-6">
             <h2 className="text-2xl font-bold">Artigos Recentes</h2>
-            <p className="text-sm text-muted-foreground">Conteudo recente da comunidade</p>
+            <p className="text-sm text-muted-foreground">Conteúdo recente da comunidade</p>
           </div>
-          <div className="grid gap-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {recent.map((article) => (
-              <ArticleCard key={article.id} article={article} variant="list" />
+              <ArticleCard key={article.id} article={article} variant="compact" />
             ))}
           </div>
         </section>
@@ -94,6 +94,18 @@ export function HomePage() {
       {/* Newsletter */}
       <section className="py-12">
         <NewsletterSection />
+      </section>
+
+      {/* CTA final */}
+      <section className="pb-16 pt-4 text-center">
+        <h2 className="text-2xl font-bold">Compartilhe Seu Conhecimento</h2>
+        <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+          Junte-se à nossa comunidade de escritores e compartilhe suas experiências e conhecimentos
+          em tecnologia.
+        </p>
+        <Button asChild variant="outline" className="mt-6">
+          <Link to="/cadastro">Criar Conta Gratuita</Link>
+        </Button>
       </section>
     </div>
   );

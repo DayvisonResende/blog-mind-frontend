@@ -1,11 +1,21 @@
 import { cn } from '@/lib/utils';
 
-/** Badge de categoria (laranja/ambar, conforme o Figma). */
-export function CategoryBadge({ category, className }: { category: string; className?: string }) {
+interface CategoryBadgeProps {
+  category: string;
+  /** 'muted' = chip escuro (cards) · 'solid' = laranja (detalhe) */
+  variant?: 'muted' | 'solid';
+  className?: string;
+}
+
+/** Badge de categoria. Nos cards e um chip escuro; no detalhe, laranja solido (Figma). */
+export function CategoryBadge({ category, variant = 'muted', className }: CategoryBadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full bg-category/15 px-2.5 py-0.5 text-xs font-medium text-category',
+        'inline-flex items-center rounded-md px-3 py-1.5 text-xs font-medium',
+        variant === 'solid'
+          ? 'bg-category text-category-foreground'
+          : 'bg-secondary text-secondary-foreground',
         className,
       )}
     >

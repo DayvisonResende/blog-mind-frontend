@@ -44,11 +44,12 @@ describe('CommentSection', () => {
     vi.mocked(commentService.listByArticle).mockResolvedValue([sampleComment]);
   });
 
-  it('mostra "Faca login" quando deslogado e nao mostra o formulario', async () => {
+  it('mostra "Faça login" quando deslogado e nao mostra o formulario', async () => {
     renderSection();
     expect(await screen.findByText('Otimo artigo!')).toBeInTheDocument();
-    expect(screen.getByText('Faca login')).toBeInTheDocument();
-    expect(screen.queryByPlaceholderText('Escreva um comentario...')).not.toBeInTheDocument();
+    expect(screen.getByText('Faça login para comentar')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /fazer login/i })).toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('Escreva um comentário...')).not.toBeInTheDocument();
   });
 
   it('mostra o formulario quando logado', async () => {
@@ -56,12 +57,12 @@ describe('CommentSection', () => {
     authState.user = { id: 'u1' };
     renderSection();
     expect(await screen.findByText('Otimo artigo!')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Escreva um comentario...')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /publicar comentario/i })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Escreva um comentário...')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /publicar comentário/i })).toBeInTheDocument();
   });
 
   it('mostra a contagem de comentarios', async () => {
     renderSection();
-    expect(await screen.findByText('Comentarios (1)')).toBeInTheDocument();
+    expect(await screen.findByText('Comentários (1)')).toBeInTheDocument();
   });
 });

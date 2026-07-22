@@ -41,7 +41,7 @@ const statCards: StatCard[] = [
   { key: 'totalArticles', label: 'Total de Artigos', icon: FileText },
   { key: 'totalComments', label: 'Engajamento', icon: MessageSquare },
   { key: 'totalLikes', label: 'Curtidas', icon: Heart },
-  { key: 'avgReadingTime', label: 'Tempo medio de leitura', icon: TrendingUp, suffix: ' min' },
+  { key: 'avgReadingTime', label: 'Tempo médio de leitura', icon: TrendingUp, suffix: ' min' },
 ];
 
 export function DashboardPage() {
@@ -72,7 +72,7 @@ export function DashboardPage() {
     setDeleting(true);
     try {
       await articleService.remove(toDelete.id);
-      toast.success('Artigo excluido.');
+      toast.success('Artigo excluído.');
       setToDelete(null);
       load();
     } catch (e) {
@@ -93,7 +93,7 @@ export function DashboardPage() {
         <div className="flex gap-2">
           <Button variant="outline" asChild>
             <Link to="/configuracoes">
-              <Settings className="mr-2 size-4" /> Configuracoes
+              <Settings className="mr-2 size-4" /> Configurações
             </Link>
           </Button>
           <Button asChild>
@@ -126,8 +126,8 @@ export function DashboardPage() {
 
       {/* Meus Artigos + Atividade Recente */}
       <div className="mt-10 grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <h2 className="mb-4 text-xl font-bold">Meus Artigos</h2>
+        <div className="rounded-lg border bg-card p-5 lg:col-span-2">
+          <h2 className="mb-4 text-lg font-bold">Meus Artigos</h2>
 
         {loading ? (
           <div className="space-y-3">
@@ -137,7 +137,7 @@ export function DashboardPage() {
           </div>
         ) : articles.length === 0 ? (
           <EmptyState
-            title="Voce ainda nao escreveu nenhum artigo"
+            title="Você ainda não escreveu nenhum artigo"
             description="Compartilhe seu primeiro artigo com a comunidade."
             action={
               <Button asChild>
@@ -176,14 +176,19 @@ export function DashboardPage() {
                     </span>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={() => navigate(`/artigos/${article.id}/editar`)}>
+                <div className="flex shrink-0 flex-col gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="justify-start"
+                    onClick={() => navigate(`/artigos/${article.id}/editar`)}
+                  >
                     <Pencil className="mr-1 size-3.5" /> Editar
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="text-destructive hover:text-destructive"
+                    className="justify-start text-destructive hover:text-destructive"
                     onClick={() => setToDelete(article)}
                   >
                     <Trash2 className="mr-1 size-3.5" /> Excluir
@@ -204,7 +209,7 @@ export function DashboardPage() {
           <DialogHeader>
             <DialogTitle>Excluir Artigo</DialogTitle>
             <DialogDescription>
-              Tem certeza que deseja excluir este artigo? Esta acao nao pode ser desfeita.
+              Tem certeza que deseja excluir este artigo? Esta ação não pode ser desfeita.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

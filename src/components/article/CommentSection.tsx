@@ -82,7 +82,7 @@ export function CommentSection({ articleId, onCountChange }: CommentSectionProps
     updateCount(next);
     try {
       await commentService.remove(comment.id);
-      toast.success('Comentario removido.');
+      toast.success('Comentário removido.');
     } catch (err) {
       setComments(previous);
       toast.error((err as NormalizedError).message);
@@ -91,36 +91,36 @@ export function CommentSection({ articleId, onCountChange }: CommentSectionProps
 
   return (
     <section id="comentarios" className="mt-12 border-t pt-8">
-      <h2 className="text-xl font-bold">Comentarios ({comments.length})</h2>
+      <h2 className="text-xl font-bold">Comentários ({comments.length})</h2>
 
       {/* Formulario ou aviso de login */}
       {isAuthenticated ? (
         <form onSubmit={handleSubmit} className="mt-4 space-y-2">
           <Textarea
-            placeholder="Escreva um comentario..."
+            placeholder="Escreva um comentário..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
             rows={3}
           />
           <div className="flex justify-end">
             <Button type="submit" disabled={submitting || !content.trim()}>
-              {submitting ? 'Publicando...' : 'Publicar Comentario'}
+              {submitting ? 'Publicando...' : 'Publicar Comentário'}
             </Button>
           </div>
         </form>
       ) : (
-        <div className="mt-4 rounded-lg border bg-muted/40 p-4 text-center text-sm text-muted-foreground">
-          <Link to="/login" className="font-medium text-foreground hover:underline">
-            Faca login
-          </Link>{' '}
-          para comentar.
+        <div className="mt-4 flex flex-col items-center gap-3 rounded-lg border bg-muted/40 px-4 py-8 text-center">
+          <p className="text-sm text-muted-foreground">Faça login para comentar</p>
+          <Button asChild>
+            <Link to="/login">Fazer login</Link>
+          </Button>
         </div>
       )}
 
       {/* Lista */}
       <div className="mt-6 space-y-4">
         {loading ? (
-          <p className="text-sm text-muted-foreground">Carregando comentarios...</p>
+          <p className="text-sm text-muted-foreground">Carregando comentários...</p>
         ) : comments.length === 0 ? (
           <p className="text-sm text-muted-foreground">Seja o primeiro a comentar.</p>
         ) : (
@@ -138,12 +138,12 @@ export function CommentSection({ articleId, onCountChange }: CommentSectionProps
                 <p className="mt-1 whitespace-pre-wrap break-words text-sm">{comment.content}</p>
                 <div className="mt-2 flex items-center gap-3">
                   <button
-                    onClick={() => (isAuthenticated ? handleLike(comment) : toast.info('Faca login para curtir.'))}
+                    onClick={() => (isAuthenticated ? handleLike(comment) : toast.info('Faça login para curtir.'))}
                     className={cn(
                       'flex items-center gap-1 text-xs transition-colors hover:text-foreground',
                       comment.liked ? 'text-primary' : 'text-muted-foreground',
                     )}
-                    aria-label="Curtir comentario"
+                    aria-label="Curtir comentário"
                   >
                     <Heart className={cn('size-3.5', comment.liked && 'fill-current')} />
                     {comment.likesCount}
@@ -152,7 +152,7 @@ export function CommentSection({ articleId, onCountChange }: CommentSectionProps
                     <button
                       onClick={() => handleDelete(comment)}
                       className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-destructive"
-                      aria-label="Excluir comentario"
+                      aria-label="Excluir comentário"
                     >
                       <Trash2 className="size-3.5" /> Excluir
                     </button>
