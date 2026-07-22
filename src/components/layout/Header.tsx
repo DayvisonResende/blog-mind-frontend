@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, LogOut, Settings } from 'lucide-react';
+import { LayoutDashboard, LogOut, Menu, Settings } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
 import { Logo } from './Logo';
@@ -41,7 +41,20 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-2 sm:gap-8">
+          {/* Menu mobile */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild className="sm:hidden">
+              <Button variant="ghost" size="icon" aria-label="Abrir menu">
+                <Menu className="size-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem onClick={() => navigate('/')}>Home</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/artigos')}>Artigos</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Logo />
           <nav className="hidden items-center gap-6 sm:flex">
             <NavLink to="/" end className={navLinkClass}>

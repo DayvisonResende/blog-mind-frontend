@@ -44,6 +44,7 @@ export function ArticlesPage() {
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Buscar artigos..."
+            aria-label="Buscar artigos"
             className="pl-9"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
@@ -53,6 +54,7 @@ export function ArticlesPage() {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          aria-label="Filtrar por categoria"
           className="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <option value="">Todas as categorias</option>
