@@ -1,24 +1,32 @@
 # Blog Mind — Frontend
 
-Interface web do sistema de blog full-stack desenvolvido para o Case de Estágio da **Mind Group**.
+Interface web do sistema de blog full-stack desenvolvido para o **Case de Estágio da Mind Group**.
 Consome a API REST do [blog-mind-backend](https://github.com/DayvisonResende/blog-mind-backend).
-
-> 🚧 Projeto em desenvolvimento — este README será completado ao longo das fases.
 
 ## Stack
 
-- **React + Vite** · **TypeScript**
-- **React Router** (rotas públicas/privadas)
-- **Tailwind CSS** (+ shadcn/ui) — tema dark/light por tokens
+- **React 19 + Vite** · **TypeScript**
+- **React Router** — rotas públicas e privadas
+- **Tailwind CSS v4 + shadcn/ui** — tema dark/light por tokens
 - **React Hook Form + Zod** — validação de formulários
-- **Axios** — cliente HTTP com interceptors de JWT e erros
+- **Axios** — cliente HTTP com interceptors de JWT e de erros
+- **react-markdown** — renderização do conteúdo dos artigos
+- **Vitest + Testing Library** — testes automatizados
 
 ## Pré-requisitos
 
 - Node.js LTS (18+)
-- Backend rodando (ver [blog-mind-backend](https://github.com/DayvisonResende/blog-mind-backend))
+- **Backend rodando** (ver [blog-mind-backend](https://github.com/DayvisonResende/blog-mind-backend))
 
-## Variáveis de ambiente
+## 1. Instalação
+
+```bash
+git clone https://github.com/DayvisonResende/blog-mind-frontend.git
+cd blog-mind-frontend
+npm install
+```
+
+## 2. Variáveis de ambiente
 
 Crie um arquivo `.env` na raiz a partir do `.env.example`:
 
@@ -26,55 +34,58 @@ Crie um arquivo `.env` na raiz a partir do `.env.example`:
 VITE_API_URL=http://localhost:3333
 ```
 
-## Instalação e execução
+## 3. Executar
 
 ```bash
-# instalar dependências
-npm install
-
-# rodar em desenvolvimento
-npm run dev
-
-# build de produção
-npm run build
+npm run dev       # desenvolvimento — http://localhost:5173
+npm run build     # build de produção
+npm run preview   # pré-visualiza o build
 ```
 
-A aplicação sobe em `http://localhost:5173` (padrão do Vite).
+> **Importante:** suba o backend primeiro (porta 3333). Sem ele, as telas ficam sem dados.
 
-## Estrutura
+## Credenciais de teste
 
-```
-src/
-  pages/       # home, listagem, detalhe, login, cadastro, dashboard, criar/editar, configuracoes
-  components/  # card, header, footer, inputs, modal, dropdown, toasts, skeletons
-  services/    # cliente HTTP e chamadas à API
-  contexts/    # Auth e Theme (dark/light)
-  hooks/
-  types/
-  styles/      # tokens / estilos
-```
+Use qualquer usuário do seed com a senha **`senha123`** — ex.: `john@example.com`.
+
+## Scripts
+
+| Comando | Descrição |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm test` | Testes (Vitest + Testing Library) |
+| `npm run lint` | ESLint |
 
 ## Rotas
 
 | Rota | Descrição | Acesso |
 |---|---|---|
 | `/` | Home (hero, destaques, recentes, newsletter) | Público |
-| `/login` | Login | Público |
-| `/cadastro` | Cadastro | Público |
+| `/login` · `/cadastro` | Login e cadastro | Público |
 | `/artigos` | Listagem (busca, filtro, grid/lista) | Público |
-| `/artigos/:id` | Detalhe do artigo (comentários, curtidas) | Público |
-| `/artigos/novo` | Criar artigo | Protegido |
-| `/artigos/:id/editar` | Editar artigo | Protegido (autor) |
-| `/dashboard` | Dashboard (estatísticas, meus artigos) | Protegido |
-| `/configuracoes` | Configurações do perfil | Protegido |
+| `/artigos/:id` | Detalhe (markdown, comentários, curtir/salvar) | Público |
+| `/artigos/novo` · `/artigos/:id/editar` | Criar / editar artigo | Protegido |
+| `/dashboard` | Estatísticas, meus artigos, atividade recente | Protegido |
+| `/configuracoes` | Perfil | Protegido |
 
 ## Tema claro/escuro
 
-O tema padrão é **escuro**. Use o ícone de **lua** no header para alternar; a preferência é persistida no `localStorage` e respeita o `prefers-color-scheme` do sistema.
+O tema padrão é **escuro**. Use o ícone de **lua/sol** no header para alternar — a
+preferência é persistida no `localStorage` e respeita o `prefers-color-scheme` do sistema.
 
-## Credenciais de teste
+## Estrutura
 
-_(preencher com o usuário/senha do seed do backend)_
+```
+src/
+  pages/        # telas
+  components/   # ui (shadcn), layout, article, comuns
+  contexts/     # Auth e Theme
+  hooks/        # useAuth, useTheme, useAsync, useDebounce
+  services/     # cliente axios e chamadas à API
+  lib/          # utils, validações, formatação
+  types/        # tipos da API
+```
 
 ---
 
