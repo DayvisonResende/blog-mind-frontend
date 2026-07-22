@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ArrowLeft, Bookmark, Clock, Eye, Heart, Share2 } from 'lucide-react';
+import { ArrowLeft, Bookmark, Clock, Eye, Heart, MessageSquare, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Article } from '@/types/api';
 import { articleService } from '@/services/article.service';
@@ -26,22 +26,25 @@ export function ArticleDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<NormalizedError>();
 
+  // Guarda o id ja requisitado: evita o duplo fetch do StrictMode (dev),
+  // que fazia a visualizacao subir de 2 em 2.
+  const requestedIdRef = useRef<string>('');
+
   useEffect(() => {
-    let active = true;
+    if (requestedIdRef.current === id) return;
+    requestedIdRef.current = id;
     setLoading(true);
+    setError(undefined);
     articleService
       .getById(id)
-      .then((data) => active && setArticle(data))
-      .catch((e) => active && setError(e as NormalizedError))
-      .finally(() => active && setLoading(false));
-    return () => {
-      active = false;
-    };
+      .then(setArticle)
+      .catch((e) => setError(e as NormalizedError))
+      .finally(() => setLoading(false));
   }, [id]);
 
   const requireAuth = useCallback((): boolean => {
     if (!isAuthenticated) {
-      toast.info('Faca login para interagir com o artigo.');
+      toast.info('Faça login para interagir com o artigo.');
       navigate('/login', { state: { from: `/artigos/${id}` } });
       return false;
     }
@@ -82,7 +85,7 @@ export function ArticleDetailPage() {
 
   const handleShare = async () => {
     await navigator.clipboard.writeText(window.location.href);
-    toast.success('Link copiado para a area de transferencia!');
+    toast.success('Link copiado para a área de transferência!');
   };
 
   if (loading) return <FullScreenLoader />;
@@ -90,8 +93,8 @@ export function ArticleDetailPage() {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
         <EmptyState
-          title="Artigo nao encontrado"
-          description={error?.message ?? 'O artigo que voce procura nao existe.'}
+          title="Artigo não encontrado"
+          description={error?.message ?? 'O artigo que você procura não existe.'}
           action={
             <Button asChild>
               <Link to="/artigos">Ver todos os artigos</Link>
@@ -108,17 +111,19 @@ export function ArticleDetailPage() {
     <article className="mx-auto max-w-3xl px-4 py-10">
       <Link
         to="/artigos"
-        className="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+        className="flex w-fit items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="size-4" /> Voltar aos Artigos
       </Link>
 
-      <CategoryBadge category={article.category} />
-      <h1 className="mt-3 text-3xl font-bold sm:text-4xl">{article.title}</h1>
+      <div className="mt-8">
+        <CategoryBadge category={article.category} variant="solid" />
+      </div>
+      <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{article.title}</h1>
       <p className="mt-3 text-lg text-muted-foreground">{article.summary}</p>
 
-      {/* Autor + meta */}
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-y py-4">
+      {/* Autor + acoes */}
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t pt-4">
         <div className="flex items-center gap-3">
           <Avatar>
             <AvatarImage src={resolveImageUrl(article.author.avatar)} alt={article.author.name} />
@@ -126,33 +131,48 @@ export function ArticleDetailPage() {
           </Avatar>
           <div>
             <p className="text-sm font-medium">{article.author.name}</p>
-            <p className="text-xs text-muted-foreground">{formatDate(article.createdAt)}</p>
+            <p className="flex items-center gap-1 text-xs text-muted-foreground">
+              {formatDate(article.createdAt)} · <Clock className="size-3" /> {article.readingTime}min
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1 text-sm text-muted-foreground">
-            <Clock className="size-4" /> {article.readingTime} min
-          </span>
-          <span className="flex items-center gap-1 text-sm text-muted-foreground">
-            <Eye className="size-4" /> {article.views}
-          </span>
+        <div className="flex items-center gap-1">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleLike}
+            aria-label="Curtir"
+            className={cn(article.isLiked && 'text-primary')}
+          >
+            <Heart className={cn('size-5', article.isLiked && 'fill-current')} />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleSave}
+            aria-label="Salvar"
+            className={cn(article.isSaved && 'text-primary')}
+          >
+            <Bookmark className={cn('size-5', article.isSaved && 'fill-current')} />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={handleShare} aria-label="Compartilhar">
+            <Share2 className="size-5" />
+          </Button>
         </div>
       </div>
 
-      {/* Acoes */}
-      <div className="mt-4 flex items-center gap-2">
-        <Button variant={article.isLiked ? 'default' : 'outline'} size="sm" onClick={handleLike}>
-          <Heart className={cn('mr-1 size-4', article.isLiked && 'fill-current')} />
-          {article.likesCount}
-        </Button>
-        <Button variant={article.isSaved ? 'default' : 'outline'} size="sm" onClick={handleSave}>
-          <Bookmark className={cn('mr-1 size-4', article.isSaved && 'fill-current')} />
-          {article.isSaved ? 'Salvo' : 'Salvar'}
-        </Button>
-        <Button variant="outline" size="sm" onClick={handleShare}>
-          <Share2 className="mr-1 size-4" /> Compartilhar
-        </Button>
+      {/* Estatisticas */}
+      <div className="mt-4 flex flex-wrap items-center gap-4 border-b pb-4 text-sm text-muted-foreground">
+        <span className="flex items-center gap-1">
+          <Heart className="size-4" /> {article.likesCount} curtidas
+        </span>
+        <span className="flex items-center gap-1">
+          <Eye className="size-4" /> {article.views} visualizações
+        </span>
+        <span className="flex items-center gap-1">
+          <MessageSquare className="size-4" /> {article.commentsCount} comentários
+        </span>
       </div>
 
       {/* Capa */}
@@ -171,10 +191,13 @@ export function ArticleDetailPage() {
 
       {/* Tags */}
       {article.tags.length > 0 && (
-        <div className="mt-8 flex flex-wrap gap-2">
+        <div className="mt-8 flex flex-wrap gap-2 border-t pt-6">
           {article.tags.map((tag) => (
-            <span key={tag} className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
-              #{tag}
+            <span
+              key={tag}
+              className="rounded-md bg-secondary px-3 py-1.5 text-xs text-secondary-foreground"
+            >
+              {tag}
             </span>
           ))}
         </div>
