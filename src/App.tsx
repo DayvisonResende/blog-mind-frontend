@@ -1,0 +1,17 @@
+import { Routes, Route } from 'react-router-dom';
+import { HomePage } from '@/pages/HomePage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
+
+/**
+ * Roteamento da aplicacao. As telas do blog (listagem, detalhe, login,
+ * cadastro, dashboard, criar/editar, configuracoes) sao adicionadas nas
+ * Fases 7 e 8; rotas privadas ganham o ProtectedRoute na Fase 7.
+ */
+export function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
+}

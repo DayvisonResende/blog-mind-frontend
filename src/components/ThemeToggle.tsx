@@ -1,0 +1,20 @@
+import { Moon, Sun } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useTheme } from '@/hooks/useTheme';
+
+/** Botao de alternancia de tema (icone de lua/sol) usado no header. */
+export function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={toggleTheme}
+      aria-label={isDark ? 'Ativar tema claro' : 'Ativar tema escuro'}
+    >
+      {isDark ? <Sun className="size-5" /> : <Moon className="size-5" />}
+    </Button>
+  );
+}
