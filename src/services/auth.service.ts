@@ -12,12 +12,6 @@ export interface LoginPayload {
   password: string;
 }
 
-export interface UpdateProfilePayload {
-  name?: string;
-  bio?: string | null;
-  avatar?: string | null;
-}
-
 /** Chamadas de autenticacao e perfil ao backend. */
 export const authService = {
   register: (payload: RegisterPayload) =>
@@ -28,6 +22,6 @@ export const authService = {
 
   me: () => api.get<User>('/auth/me').then((r) => r.data),
 
-  updateProfile: (payload: UpdateProfilePayload) =>
-    api.put<User>('/users/me', payload).then((r) => r.data),
+  // Multipart: name/bio + foto de perfil (campo "avatar", opcional).
+  updateProfile: (data: FormData) => api.put<User>('/users/me', data).then((r) => r.data),
 };
