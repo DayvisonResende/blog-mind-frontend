@@ -8,6 +8,7 @@ import { articleSchema, type ArticleForm } from '@/lib/validations/article';
 import { articleService } from '@/services/article.service';
 import type { NormalizedError } from '@/services/api';
 import { useAsync } from '@/hooks/useAsync';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { calculateReadingTime, countWords } from '@/lib/reading';
 import { resolveImageUrl } from '@/lib/format';
 import { Button } from '@/components/ui/button';
@@ -30,6 +31,7 @@ export function ArticleFormPage() {
   const { id } = useParams();
   const isEdit = Boolean(id);
   const navigate = useNavigate();
+  useDocumentTitle(isEdit ? 'Editar Artigo' : 'Novo Artigo');
 
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');

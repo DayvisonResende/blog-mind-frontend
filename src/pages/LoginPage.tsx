@@ -5,6 +5,7 @@ import { LogIn } from 'lucide-react';
 import { toast } from 'sonner';
 import { loginSchema, type LoginForm } from '@/lib/validations/auth';
 import { useAuth } from '@/hooks/useAuth';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import type { NormalizedError } from '@/services/api';
 import { Logo } from '@/components/layout/Logo';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,7 @@ import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 
 export function LoginPage() {
+  useDocumentTitle('Entrar');
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();

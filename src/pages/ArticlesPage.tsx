@@ -3,6 +3,7 @@ import { Filter, LayoutGrid, List, Search } from 'lucide-react';
 import { articleService } from '@/services/article.service';
 import { useAsync } from '@/hooks/useAsync';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { ArticleCard, ArticleCardSkeleton } from '@/components/article/ArticleCard';
 import { EmptyState } from '@/components/common/EmptyState';
 import { Input } from '@/components/ui/input';
@@ -21,6 +22,7 @@ const ALL = 'all';
 type ViewMode = 'grid' | 'list';
 
 export function ArticlesPage() {
+  useDocumentTitle('Artigos');
   const [searchInput, setSearchInput] = useState('');
   const [category, setCategory] = useState('');
   const [page, setPage] = useState(1);

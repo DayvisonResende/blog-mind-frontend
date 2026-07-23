@@ -16,6 +16,7 @@ import type { Article, DashboardStats } from '@/types/api';
 import { articleService } from '@/services/article.service';
 import type { NormalizedError } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { formatDate, resolveImageUrl } from '@/lib/format';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/common/EmptyState';
@@ -47,6 +48,7 @@ const statCards: StatCard[] = [
 export function DashboardPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  useDocumentTitle('Dashboard');
 
   const [stats, setStats] = useState<DashboardStats>();
   const [articles, setArticles] = useState<Article[]>([]);

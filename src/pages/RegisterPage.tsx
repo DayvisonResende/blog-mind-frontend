@@ -5,6 +5,7 @@ import { CheckCircle2, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import { registerSchema, type RegisterForm } from '@/lib/validations/auth';
 import { useAuth } from '@/hooks/useAuth';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import type { NormalizedError } from '@/services/api';
 import { Logo } from '@/components/layout/Logo';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,7 @@ import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 
 export function RegisterPage() {
+  useDocumentTitle('Criar conta');
   const { register: registerUser } = useAuth();
   const navigate = useNavigate();
 
@@ -42,8 +44,8 @@ export function RegisterPage() {
     <div className="mx-auto w-full max-w-md px-4 py-16">
       <div className="mb-8 flex flex-col items-center gap-3 text-center">
         <Logo className="text-4xl" />
-        <h1 className="text-3xl font-bold">Entrar na Plataforma</h1>
-        <p className="text-muted-foreground">Acesse sua conta para gerenciar seus artigos</p>
+        <h1 className="text-3xl font-bold">Cadastre-se na Plataforma</h1>
+        <p className="text-muted-foreground">Crie sua conta para gerenciar seus artigos</p>
       </div>
 
       <form
