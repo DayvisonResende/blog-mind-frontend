@@ -1,8 +1,12 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ArticleCard } from './ArticleCard';
 import type { Article } from '@/types/api';
+
+vi.mock('@/hooks/useAuth', () => ({
+  useAuth: () => ({ isAuthenticated: false }),
+}));
 
 const article: Article = {
   id: 'abc',
