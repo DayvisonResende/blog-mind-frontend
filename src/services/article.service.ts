@@ -30,6 +30,8 @@ export const articleService = {
 
   mine: () => api.get<Article[]>('/users/me/articles').then((r) => r.data),
 
+  saved: () => api.get<Article[]>('/users/me/saves').then((r) => r.data),
+
   stats: () => api.get<DashboardStats>('/dashboard/stats').then((r) => r.data),
 
   toggleSave: (id: string) =>
