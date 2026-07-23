@@ -6,6 +6,7 @@ import { ArrowLeft, Camera, Mail, User as UserIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { profileSchema, type ProfileForm } from '@/lib/validations/auth';
 import { useAuth } from '@/hooks/useAuth';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { authService } from '@/services/auth.service';
 import type { NormalizedError } from '@/services/api';
 import { resolveImageUrl } from '@/lib/format';
@@ -20,6 +21,7 @@ function formatDate(iso: string): string {
 }
 
 export function SettingsPage() {
+  useDocumentTitle('Configurações');
   const { user, updateUser } = useAuth();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -59,6 +61,7 @@ export function SettingsPage() {
       const updated = await authService.updateProfile(formData);
       updateUser(updated);
       setAvatarFile(null);
+      setAvatarPreview(resolveImageUrl(updated.avatar));
       toast.success('Perfil atualizado com sucesso!');
     } catch (error) {
       toast.error((error as NormalizedError).message);

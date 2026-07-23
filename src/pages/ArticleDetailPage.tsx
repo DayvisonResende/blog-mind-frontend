@@ -8,7 +8,9 @@ import type { Article } from '@/types/api';
 import { articleService } from '@/services/article.service';
 import type { NormalizedError } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { formatDate, resolveImageUrl } from '@/lib/format';
+import { markArticleViewed } from '@/lib/viewed';
 import { cn } from '@/lib/utils';
 import { CategoryBadge } from '@/components/article/CategoryBadge';
 import { CommentSection } from '@/components/article/CommentSection';
@@ -25,6 +27,7 @@ export function ArticleDetailPage() {
   const [article, setArticle] = useState<Article>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<NormalizedError>();
+  useDocumentTitle(article?.title);
 
   // evita o duplo fetch do StrictMode (dev), que contava a view 2x
   const requestedIdRef = useRef<string>('');
@@ -36,7 +39,10 @@ export function ArticleDetailPage() {
     setError(undefined);
     articleService
       .getById(id)
-      .then(setArticle)
+      .then((data) => {
+        setArticle(data);
+        markArticleViewed(data.id);
+      })
       .catch((e) => setError(e as NormalizedError))
       .finally(() => setLoading(false));
   }, [id]);
@@ -83,8 +89,25 @@ export function ArticleDetailPage() {
   };
 
   const handleShare = async () => {
-    await navigator.clipboard.writeText(window.location.href);
-    toast.success('Link copiado para a área de transferência!');
+    const url = window.location.href;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        // fallback para contextos nao-seguros (http em rede local, sem HTTPS)
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      toast.success('Link copiado para a área de transferência!');
+    } catch {
+      toast.error('Não foi possível copiar o link.');
+    }
   };
 
   if (loading) return <FullScreenLoader />;

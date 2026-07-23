@@ -1,7 +1,8 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, LogOut, Menu, Settings } from 'lucide-react';
+import { Bookmark, LayoutDashboard, LogOut, Menu, Settings } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
+import { resolveImageUrl } from '@/lib/format';
 import { Logo } from './Logo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
@@ -74,7 +75,7 @@ export function Header() {
               <DropdownMenuTrigger asChild>
                 <button className="rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring">
                   <Avatar className="size-9">
-                    <AvatarImage src={user.avatar ?? undefined} alt={user.name} />
+                    <AvatarImage src={resolveImageUrl(user.avatar)} alt={user.name} />
                     <AvatarFallback>{initials(user.name)}</AvatarFallback>
                   </Avatar>
                 </button>
@@ -82,7 +83,7 @@ export function Header() {
               <DropdownMenuContent align="end" className="w-60">
                 <DropdownMenuLabel className="flex items-center gap-2 py-2 font-normal">
                   <Avatar className="size-9">
-                    <AvatarImage src={user.avatar ?? undefined} alt={user.name} />
+                    <AvatarImage src={resolveImageUrl(user.avatar)} alt={user.name} />
                     <AvatarFallback>{initials(user.name)}</AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
@@ -93,6 +94,9 @@ export function Header() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate('/dashboard')}>
                   <LayoutDashboard className="mr-2 size-4" /> Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/salvos')}>
+                  <Bookmark className="mr-2 size-4" /> Salvos
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/configuracoes')}>
                   <Settings className="mr-2 size-4" /> Configurações

@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { articleService } from '@/services/article.service';
+import { useAuth } from '@/hooks/useAuth';
 import { useAsync } from '@/hooks/useAsync';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { ArticleCard, ArticleCardSkeleton } from '@/components/article/ArticleCard';
 import { NewsletterSection } from '@/components/NewsletterSection';
 import { EmptyState } from '@/components/common/EmptyState';
 import { Button } from '@/components/ui/button';
 
 export function HomePage() {
+  useDocumentTitle();
+  const { isAuthenticated } = useAuth();
+  const writeLink = isAuthenticated ? '/artigos/novo' : '/cadastro';
   const { data, loading, error } = useAsync(() => articleService.list({ limit: 8 }), []);
 
   const articles = data?.items ?? [];
@@ -28,7 +33,7 @@ export function HomePage() {
             <Link to="/artigos">Explorar Artigos</Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link to="/cadastro">Começar a Escrever</Link>
+            <Link to={writeLink}>Começar a Escrever</Link>
           </Button>
         </div>
       </section>
@@ -61,7 +66,7 @@ export function HomePage() {
             description="Seja o primeiro a publicar um artigo."
             action={
               <Button asChild>
-                <Link to="/cadastro">Começar a Escrever</Link>
+                <Link to={writeLink}>Começar a Escrever</Link>
               </Button>
             }
           />
